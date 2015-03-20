@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :campaigns
   devise_for :clients
 
-  devise_scope :client do
-    root to: "devise/sessions#new"
-  end
+  root to: "campaigns#index"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
