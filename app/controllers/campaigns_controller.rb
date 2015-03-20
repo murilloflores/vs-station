@@ -1,10 +1,11 @@
 class CampaignsController < ApplicationController
   before_action :set_campaign, only: [:show, :edit, :update, :destroy]
+  before_action :check_campaign_owner, only: [:show, :edit, :update, :destroy]
 
   # GET /campaigns
   # GET /campaigns.json
   def index
-    @campaigns = Campaign.all
+    @campaigns = Campaign.where(client_id: current_client.id)
   end
 
   # GET /campaigns/1
@@ -25,6 +26,8 @@ class CampaignsController < ApplicationController
   # POST /campaigns.json
   def create
     @campaign = Campaign.new(campaign_params)
+
+    @campaign.client_id = current_client.id
 
     respond_to do |format|
       if @campaign.save
@@ -70,5 +73,14 @@ class CampaignsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def campaign_params
       params.require(:campaign).permit(:name, :client_id)
+    end
+
+    def check_campaign_owner
+      @campaign = Campaign.find(params[:id])
+      
+      if @campaign.client_id != current_client.id
+        redirect_to root_url
+      end
+
     end
 end
