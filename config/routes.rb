@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
-  resources :campaigns
+  resources :campaigns do
+    resources :leads
+  end
+
   devise_for :clients
 
   root to: "campaigns#index"
