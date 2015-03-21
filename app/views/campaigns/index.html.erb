@@ -1,3 +1,10 @@
+
+<% if current_client.uid %>
+  Your account is linked with salesforce.
+<% else %>
+  <%= link_to "Connect to your salesforce account", client_omniauth_authorize_path(:salesforce) %>
+<% end %>
+
 <h1>Listing Campaigns</h1>
 
 <table>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150320195316) do
+ActiveRecord::Schema.define(version: 20150321154949) do
 
   create_table "campaigns", force: :cascade do |t|
     t.string   "name"
@@ -35,6 +35,11 @@ ActiveRecord::Schema.define(version: 20150320195316) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "refresh_token"
+    t.string   "token"
+    t.string   "instance_url"
   end
 
   add_index "clients", ["email"], name: "index_clients_on_email", unique: true

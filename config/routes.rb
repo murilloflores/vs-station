@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   root to: "campaigns#index"
   
-  devise_for :clients
+  devise_for :clients, :controllers => { :omniauth_callbacks => "clients/omniauth_callbacks" }
   
   resources :campaigns do
     resources :leads
