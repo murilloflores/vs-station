@@ -2,6 +2,7 @@ class LeadsController < ApplicationController
   before_action :set_lead, only: [:show, :edit, :update, :destroy]
   before_action :set_campaign, only: [:index, :create, :new, :show, :edit, :update, :destroy]
   skip_before_action :authenticate_client!, only: [:new, :create, :thanks]
+  after_action :sync_with_salesforce, only: [:create]
 
   layout :application_layout
 
@@ -19,6 +20,7 @@ class LeadsController < ApplicationController
   # GET /leads/new
   def new
     @lead = Lead.new
+    @lead.campaign = @campaign
   end
 
   # GET /leads/1/edit
@@ -79,7 +81,7 @@ class LeadsController < ApplicationController
     end
 
     def set_campaign
-      @campaign = Campaign.find_by(params[:campaign_idn])
+      @campaign = Campaign.find(params[:campaign_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
@@ -90,4 +92,15 @@ class LeadsController < ApplicationController
     def application_layout
       client_signed_in? ? "application" : "external"
     end
+
+    def sync_with_salesforce
+      if @campaign.sync_with_salesforce?
+        begin
+          @lead.save_on_salesfoce!(@campaign.client)
+        rescue
+          #TODO log to further analysis
+        end
+      end
+    end
+
 end
