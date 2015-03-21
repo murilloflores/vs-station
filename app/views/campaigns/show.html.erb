@@ -23,6 +23,7 @@
       <th>Phone</th>
       <th>Website</th>
       <th colspan="3"></th>
+      <th></th>
     </tr>
   </thead>
 
@@ -39,6 +40,13 @@
         <td><%= link_to 'Show', campaign_lead_path(@campaign, lead) %></td>
         <td><%= link_to 'Edit', edit_campaign_lead_path(@campaign, lead) %></td>
         <td><%= link_to 'Destroy', [@campaign, lead], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if current_client.is_connected_to_salesforce %>
+          <% if lead.is_synced_with_salesforce %>
+            <td> <%= link_to 'Remove from salesforce', campaign_lead_remove_from_salesforce_path(@campaign, lead.id) %> </td>
+          <% else %>
+            <td> <%= link_to 'Send to salesforce', campaign_lead_send_to_salesforce_path(@campaign, lead.id) %> </td>
+          <% end %>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

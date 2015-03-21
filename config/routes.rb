@@ -10,7 +10,10 @@ Rails.application.routes.draw do
   
   
   resources :campaigns do
-    resources :leads
+    resources :leads do
+      get 'send-to-salesforce' => 'salesforce#send_to_salesforce'
+      get 'remove-from-salesforce' => 'salesforce#remove_from_salesforce'
+    end
   end
   
   get 'thanks' => 'leads#thanks'
