@@ -3,54 +3,27 @@ class SalesforceController < ApplicationController
   before_action :set_lead
 
   def send_to_salesforce
-  
-    strategy = Devise.omniauth_configs[:salesforce].strategy
 
-    salesforce_client = Restforce.new :oauth_token => current_client.token, 
-      :refresh_token => current_client.refresh_token, 
-      :instance_url  => current_client.instance_url, 
-      :client_id => strategy.client_id, 
-      :client_secret => strategy.client_secret
-
-    params = {
-      'FirstName' => @lead.name,
-      'LastName' => @lead.last_name,
-      'Email' => @lead.email,
-      'Company' => @lead.company,
-      'Title' => @lead.job_title,
-      'Phone' => @lead.phone
-    }
-
-    salesforce_lead_id = salesforce_client.create!('Lead', params)
-
-    if salesforce_lead_id
-      @lead.salesforce_id = salesforce_lead_id
-      @lead.save!
+    begin
+      @lead.save_on_salesfoce!(current_client)
       redirect_to campaign_path(@lead.campaign)
-    else
+    rescue
       #TODO improve error treatment in here
-      redirect_to campaign_path(@lead.campaign), :flash => { :error => "Could not sync to salesforce" }
+      redirect_to campaign_path(@lead.campaign), notice: "Could not sync to salesforce" 
     end
 
   end
 
 
   def remove_from_salesforce
-    strategy = Devise.omniauth_configs[:salesforce].strategy
 
-    salesforce_client = Restforce.new :oauth_token => current_client.token, 
-      :refresh_token => current_client.refresh_token, 
-      :instance_url  => current_client.instance_url, 
-      :client_id => strategy.client_id, 
-      :client_secret => strategy.client_secret
-
-    if salesforce_client.destroy('Lead', @lead.salesforce_id)
-      @lead.salesforce_id = nil
-      @lead.save!
+    begin
+      @lead.remove_from_salesforce!(current_client)
       redirect_to campaign_path(@lead.campaign)
-    else
+    rescue
+      puts "Error #{$!}"
       #TODO improve error treatment in here
-      redirect_to campaign_path(@lead.campaign), :flash => { :error => "Could not delete lead from salesforce" }
+      redirect_to campaign_path(@lead.campaign), notice: "Could not delete lead from salesforce" 
     end
 
   end
