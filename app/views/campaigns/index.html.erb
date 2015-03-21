@@ -1,6 +1,6 @@
 
 <% if current_client.uid %>
-  Your account is linked with salesforce.
+  <%= link_to "Disconnect from your salesforce account", clients_cancel_omniauth_path() %>
 <% else %>
   <%= link_to "Connect to your salesforce account", client_omniauth_authorize_path(:salesforce) %>
 <% end %>

@@ -3,6 +3,11 @@ Rails.application.routes.draw do
   root to: "campaigns#index"
   
   devise_for :clients, :controllers => { :omniauth_callbacks => "clients/omniauth_callbacks" }
+
+  devise_scope :client do
+    get 'clients/cancel_omniauth' => 'clients/omniauth_callbacks#unlink'
+  end
+  
   
   resources :campaigns do
     resources :leads
