@@ -1,6 +1,6 @@
 class LeadsController < ApplicationController
   before_action :set_lead, only: [:show, :edit, :update, :destroy]
-  before_action :set_campaign, only: [:index, :create, :new, :show, :edit]
+  before_action :set_campaign, only: [:index, :create, :new, :show, :edit, :update]
   skip_before_action :authenticate_client!, only: [:new, :create]
 
   # GET /leads
@@ -27,6 +27,7 @@ class LeadsController < ApplicationController
   # POST /leads.json
   def create
     @lead = Lead.new(lead_params)
+    @lead.campaign_id = @campaign.id
 
     respond_to do |format|
       if @lead.save
@@ -44,7 +45,7 @@ class LeadsController < ApplicationController
   def update
     respond_to do |format|
       if @lead.update(lead_params)
-        format.html { redirect_to [@campaign, @lead], notice: 'Lead was successfully updated.' }
+        format.html { redirect_to campaign_lead_url(@campaign, @lead), notice: 'Lead was successfully updated.' }
         format.json { render :show, status: :ok, location: @lead }
       else
         format.html { render :edit }
