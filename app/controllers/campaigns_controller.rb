@@ -72,7 +72,7 @@ class CampaignsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def campaign_params
-      params.require(:campaign).permit(:name, :client_id)
+      params.require(:campaign).permit(:name, :client_id, :sync_with_salesforce)
     end
 
     def check_campaign_owner

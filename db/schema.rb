@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150321184634) do
+ActiveRecord::Schema.define(version: 20150321204711) do
 
   create_table "campaigns", force: :cascade do |t|
     t.string   "name"
     t.integer  "client_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.boolean  "sync_with_salesforce"
   end
 
   add_index "campaigns", ["client_id"], name: "index_campaigns_on_client_id"

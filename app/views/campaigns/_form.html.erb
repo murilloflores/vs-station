@@ -15,6 +15,12 @@
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
+
+  <div class="field">
+    <%= f.label :sync_with_salesforce %><br>
+    <%= f.check_box :sync_with_salesforce, :disabled => !@campaign.client.is_connected_to_salesforce %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>
