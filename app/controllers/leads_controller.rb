@@ -1,7 +1,9 @@
 class LeadsController < ApplicationController
   before_action :set_lead, only: [:show, :edit, :update, :destroy]
-  before_action :set_campaign, only: [:index, :create, :new, :show, :edit, :update]
-  skip_before_action :authenticate_client!, only: [:new, :create]
+  before_action :set_campaign, only: [:index, :create, :new, :show, :edit, :update, :destroy]
+  skip_before_action :authenticate_client!, only: [:new, :create, :thanks]
+
+  layout :application_layout
 
   # GET /leads
   # GET /leads.json
@@ -23,6 +25,10 @@ class LeadsController < ApplicationController
   def edit
   end
 
+  # GET /leads/thanks
+  def thanks
+  end
+
   # POST /leads
   # POST /leads.json
   def create
@@ -31,7 +37,8 @@ class LeadsController < ApplicationController
 
     respond_to do |format|
       if @lead.save
-        format.html { redirect_to [@campaign, @lead], notice: 'Lead was successfully created.' }
+        redirect_path = client_signed_in? ? campaign_url(@campaign) : thanks_path
+        format.html { redirect_to redirect_path, notice: 'Lead was successfully created.' }
         format.json { render :show, status: :created, location: @lead }
       else
         format.html { render :new }
@@ -59,7 +66,7 @@ class LeadsController < ApplicationController
   def destroy
     @lead.destroy
     respond_to do |format|
-      format.html { redirect_to campaign_leads_url, notice: 'Lead was successfully destroyed.' }
+      format.html { redirect_to campaign_url(@campaign), notice: 'Lead was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -77,5 +84,9 @@ class LeadsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def lead_params
       params.require(:lead).permit(:name, :last_name, :email, :company, :job_title, :phone, :website, :campaign_id)
+    end
+
+    def application_layout
+      client_signed_in? ? "application" : "external"
     end
 end

@@ -2,4 +2,6 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Back', campaign_leads_path %>
+<% if client_signed_in? %>
+	<%= link_to 'Back', campaign_leads_path %>
+<% end %>
