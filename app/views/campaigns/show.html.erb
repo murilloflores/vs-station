@@ -40,7 +40,6 @@
 
           <td>
             <div style="float:right;">
-              <%= link_to 'Edit', edit_campaign_lead_path(@campaign, lead), :class => 'campaign-action-link' %> |
               <%= link_to 'Delete', [@campaign, lead], method: :delete, data: { confirm: 'Are you sure?' } %>
             </div>
           </td>

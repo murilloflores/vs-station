@@ -1,4 +1,8 @@
-<p id="notice"><%= notice %></p>
+<ol class="breadcrumb">
+  <li><a href="<%= root_path %>">Home</a></li>
+  <li><a href="<%= campaign_path(@campaign) %>"> <%= @campaign.name %></a></li>
+  <li><a href="<%= campaign_lead_path(@campaign, @lead) %>"> Lead - <%= @lead.name + ' ' + @lead.last_name %></a></li>
+</ol>
 
 <p>
   <strong>Name:</strong>
@@ -37,8 +41,9 @@
 
 <p>
   <strong>Campaign:</strong>
-  <%= @lead.campaign %>
+  <%= @lead.campaign.name %>
 </p>
 
-<%= link_to 'Edit', edit_campaign_lead_path(@campaign, @lead) %> |
-<%= link_to 'Back', campaign_path(@campaign) %>
+<%= link_to 'Edit', edit_campaign_lead_path(@campaign, @lead) %> 
+
+<p> </p>

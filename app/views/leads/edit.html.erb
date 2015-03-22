@@ -1,6 +1,11 @@
-<h1>Editing Lead</h1>
+<ol class="breadcrumb">
+  <li><a href="<%= root_path %>">Home</a></li>
+  <li><a href="<%= campaign_path(@campaign) %>"> <%= @campaign.name %></a></li>
+  <li><a href="<%= edit_campaign_lead_path(@campaign, @lead) %>"> Lead - <%= @lead.name + ' ' + @lead.last_name %></a></li>
+</ol>
+
+<h2>Editing <%= @lead.name + ' ' + @lead.last_name %> </h2>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', [@campaign, @lead] %> |
-<%= link_to 'Back', campaign_path(@campaign) %>
+<p></p>
