@@ -7,45 +7,14 @@ class Lead < ActiveRecord::Base
 
   def save_on_salesfoce!(current_client)
 
-    strategy = Devise.omniauth_configs[:salesforce].strategy
-
-    connection_params = { :oauth_token => current_client.token, 
-      :refresh_token => current_client.refresh_token, 
-      :instance_url  => current_client.instance_url, 
-      :client_id => strategy.client_id, 
-      :client_secret => strategy.client_secret
-    }
-
-    salesforce_client = Restforce.new connection_params
-
-    params = {
-      'FirstName' => self.name,
-      'LastName' => self.last_name,
-      'Email' => self.email,
-      'Company' => self.company,
-      'Title' => self.job_title,
-      'Phone' => self.phone
-    }
-
-    salesforce_lead_id = salesforce_client.create!('Lead', params)
-    self.salesforce_id = salesforce_lead_id
+    self.salesforce_id = Salesforceable.save_on_salesforce('Lead', self, current_client.refresh_token, current_client.instance_url)
     self.save!
+
   end
 
   def remove_from_salesforce!(current_client)
   
-    strategy = Devise.omniauth_configs[:salesforce].strategy
-
-    connection_params = { :oauth_token => current_client.token, 
-      :refresh_token => current_client.refresh_token, 
-      :instance_url  => current_client.instance_url, 
-      :client_id => strategy.client_id, 
-      :client_secret => strategy.client_secret
-    }
-
-    salesforce_client = Restforce.new connection_params
-
-    salesforce_client.destroy!('Lead', self.salesforce_id)
+    Salesforceable.remove_from_salesforce('Lead', self.salesforce_id, current_client.refresh_token, current_client.instance_url)
     self.salesforce_id = nil
     self.save!
 
