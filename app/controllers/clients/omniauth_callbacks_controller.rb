@@ -28,6 +28,10 @@ class Clients::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   end
 
+  def failure
+    redirect_to clients_services_path, :alert => "Sorry, we could not complete your request. Message from service: "+params['error_description']
+  end
+
   def services
   end
 
