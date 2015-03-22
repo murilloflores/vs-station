@@ -1,0 +1,24 @@
+<ol class="breadcrumb">
+  <li><a href="<%= root_path %>">Home</a></li>
+  <li><a href="<%= clients_services_path %>">Services</a></li>
+</ol>
+
+<h2>Service links</h2>
+<br />
+<div class="row">
+  <div class="col-sm-6 col-md-4">
+
+    <div class="thumbnail thumbnail-service">
+      <%= image_tag('salesforce-logo.gif', size: '128') %>
+      
+      <div class="caption">
+        <% if current_client.uid %>
+          Service is connected. <%= link_to "Disconnect", clients_cancel_omniauth_path(), :class => 'btn btn-danger' %>
+        <% else %>
+          Service is not connected. <%= link_to "Connect", client_omniauth_authorize_path(:salesforce), :class => 'btn btn-success' %>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>

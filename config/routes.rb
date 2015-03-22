@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   devise_scope :client do
     get 'clients/cancel_omniauth' => 'clients/omniauth_callbacks#unlink'
+    get 'clients/services' => 'clients/omniauth_callbacks#services'
   end
   
   
