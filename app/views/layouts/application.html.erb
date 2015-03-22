@@ -1,26 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>VsStation</title>
+  <title>VS Station</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    '//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag '//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-<% if client_signed_in? %>
-  Logged in as <strong><%= current_client.email %></strong>.
-  <%= link_to 'Edit profile', edit_client_registration_path, :class => 'navbar-link' %> |
-  <%= link_to "Logout", destroy_client_session_path, method: :delete, :class => 'navbar-link'  %>
-<% else %>
-  <%= link_to "Sign up", new_client_registration_path, :class => 'navbar-link'  %> |
-  <%= link_to "Login", new_client_session_path, :class => 'navbar-link'  %>
-<% end %>
+   <div class="container">
+    <div class="header clearfix">
+      <div class="pull-right login-info">
+        <% if client_signed_in? %>
+          <%= link_to  current_client.email, edit_client_registration_path, :class => 'navbar-link' %> |
+          <%= link_to "Logout", destroy_client_session_path, method: :delete, :class => 'navbar-link'  %>
+        <% else %>
+          <%= link_to "Sign up", new_client_registration_path, :class => 'navbar-link'  %> |
+          <%= link_to "Login", new_client_session_path, :class => 'navbar-link'  %>
+        <% end %>
+      </div>
+      <h3 class="text-muted">VS Station</h3>
+    </div>
 
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
+    <% if notice %>
+      <div class="alert alert-info alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Warning!</strong> <%= notice %>.
+      </div>
+    <% end %>
+    
+    <% if alert %>
+      <div class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Warning!</strong> <%= alert %>.
+      </div>
+    <% end %>
 
-<%= yield %>
+    <%= yield %>
+
+    <footer class="footer">
+      <p>&copy; Very Simple Softwares - 2015</p>
+    </footer>
+
+
+  </div> <!-- /container -->
 
 </body>
+
 </html>

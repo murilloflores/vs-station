@@ -1,10 +1,4 @@
 
-<% if current_client.uid %>
-  <%= link_to "Disconnect from your salesforce account", clients_cancel_omniauth_path() %>
-<% else %>
-  <%= link_to "Connect to your salesforce account", client_omniauth_authorize_path(:salesforce) %>
-<% end %>
-
 <h1>Listing Campaigns</h1>
 
 <table>

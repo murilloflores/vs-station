@@ -10,7 +10,7 @@ class Clients::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     current_client.save!
 
-    redirect_to campaigns_url
+    redirect_to edit_client_registration_path
 
   end
 
@@ -24,7 +24,7 @@ class Clients::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     current_client.save!
 
-    redirect_to campaigns_url
+    redirect_to edit_client_registration_path
 
   end
 

@@ -1,0 +1,59 @@
+<ol class="breadcrumb">
+  <li><a href="<%= root_path %>">Home</a></li>
+  <li><a href="<%= edit_client_registration_path %>">Edit account</a></li>
+</ol>
+
+<h2>Service links</h2>
+<br />
+<div class="row">
+  <div class="col-sm-6 col-md-4">
+
+    <div class="thumbnail thumbnail-service">
+      <%= image_tag('salesforce-logo.gif', size: '128') %>
+      
+      <div class="caption">
+        <% if current_client.uid %>
+          Service is connected. <%= link_to "Disconnect", clients_cancel_omniauth_path(), :class => 'btn btn-danger' %>
+        <% else %>
+          Service is not connected. <%= link_to "Connect", client_omniauth_authorize_path(:salesforce), :class => 'btn btn-success' %>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<h2>Edit yout account </h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div class="field form-group form-input-group">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, :class => 'form-control' %>
+  </div>
+
+  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+  <% end %>
+
+  <div class="field form-group form-input-group">
+    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+    <%= f.password_field :password, autocomplete: "off", :class => 'form-control' %>
+  </div>
+
+  <div class="field form-group form-input-group">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "off", :class => 'form-control' %>
+  </div>
+
+  <div class="field form-group form-input-group">
+    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+    <%= f.password_field :current_password, autocomplete: "off", :class => 'form-control' %>
+  </div>
+
+  <div class="actions form-input-group">
+    <%= f.submit "Update", :class => ['btn', 'btn-success'] %>
+  </div>
+<% end %>
