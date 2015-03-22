@@ -4,48 +4,51 @@
 </ol>
 
 <h2> <%= @campaign.name %> </h2>
-<p> Form url: <%= new_campaign_lead_path(@campaign, :only_path => false) %> </p>
+<p> Form url: <%= link_to new_campaign_lead_path(@campaign, :only_path => false), new_campaign_lead_path(@campaign, :only_path => false), target: 'blank' %> </p>
 
+<% if @campaign.leads.size > 0 %>
 
-<table class="table">
-  <caption>Generated leads</caption>
- <thead>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Company</th>
-      <th>Synced with services?</th>
-      <th ></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @campaign.leads.each do |lead| %>
+  <table class="table">
+    <caption>Generated leads</caption>
+   <thead>
       <tr>
-        <td><%= link_to lead.name + ' ' + lead.last_name, campaign_lead_path(@campaign, lead)%> </td>
-        <td><%= lead.email %></td>
-        <td><%= lead.company %></td>
-        
-        <td style="text-align: center">
-         <strong> <%= lead.is_synced_with_salesforce ? 'Yes' : 'No' %>. </strong>
-
-          <% if current_client.is_connected_to_salesforce %>
-            <% if lead.is_synced_with_salesforce %>
-              <%= link_to 'Remove', campaign_lead_remove_from_salesforce_path(@campaign, lead.id) %>
-            <% else %>
-              <%= link_to 'Send', campaign_lead_send_to_salesforce_path(@campaign, lead.id) %>
-            <% end %>
-          <% end %>
-        </td>
-
-        <td>
-          <div style="float:right;">
-            <%= link_to 'Edit', edit_campaign_lead_path(@campaign, lead), :class => 'campaign-action-link' %> |
-            <%= link_to 'Delete', [@campaign, lead], method: :delete, data: { confirm: 'Are you sure?' } %>
-          </div>
-        </td>
-        
+        <th>Name</th>
+        <th>Email</th>
+        <th>Company</th>
+        <th>Synced with services?</th>
+        <th ></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @campaign.leads.each do |lead| %>
+        <tr>
+          <td><%= link_to lead.name + ' ' + lead.last_name, campaign_lead_path(@campaign, lead)%> </td>
+          <td><%= lead.email %></td>
+          <td><%= lead.company %></td>
+          
+          <td style="text-align: center">
+           <strong> <%= lead.is_synced_with_salesforce ? 'Yes' : 'No' %>. </strong>
 
+            <% if current_client.is_connected_to_salesforce %>
+              <% if lead.is_synced_with_salesforce %>
+                <%= link_to 'Remove', campaign_lead_remove_from_salesforce_path(@campaign, lead.id) %>
+              <% else %>
+                <%= link_to 'Send', campaign_lead_send_to_salesforce_path(@campaign, lead.id) %>
+              <% end %>
+            <% end %>
+          </td>
+
+          <td>
+            <div style="float:right;">
+              <%= link_to 'Edit', edit_campaign_lead_path(@campaign, lead), :class => 'campaign-action-link' %> |
+              <%= link_to 'Delete', [@campaign, lead], method: :delete, data: { confirm: 'Are you sure?' } %>
+            </div>
+          </td>
+          
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p> Your campaign has no leads yet. Use the url above to include leads </p>
+<% end %>
