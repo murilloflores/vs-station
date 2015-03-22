@@ -15,7 +15,7 @@
       <tr>
         <td><%= link_to campaign.name, campaign %></td>
         <td style="text-align: center">
-          <%= check_box_tag('', '', campaign.sync_with_salesforce?, disabled: true)  %> <%= campaign.sync_with_salesforce? ? 'Yes' : 'No' %>
+          <%= campaign.sync_with_salesforce? ? 'Yes' : 'No' %>
         </td>
         <td>
           <div style="float:right;">
