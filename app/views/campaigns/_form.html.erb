@@ -11,17 +11,18 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field form-group form-input-group">
     <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, :class => 'form-control' %>
   </div>
 
-  <div class="field">
-    <%= f.label :sync_with_salesforce %><br>
-    <%= f.check_box :sync_with_salesforce, :disabled => !@campaign.client.is_connected_to_salesforce %>
+  <div class="form-group form-input-group checkbox">
+    <label>
+    <%= f.check_box :sync_with_salesforce, :disabled => !(@campaign.client && @campaign.client.is_connected_to_salesforce) %> Sync with linked services
+    </label>
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="actions form-input-group">
+    <%= f.submit :class => ['btn', 'btn-success']%>
   </div>
 <% end %>
