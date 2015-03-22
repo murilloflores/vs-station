@@ -1,23 +1,16 @@
 class Lead < ActiveRecord::Base
   belongs_to :campaign
 
-  def is_synced_with_salesforce
-  	return self.salesforce_id != nil
-  end
-
-  def save_on_salesfoce!(current_client)
-
-    self.salesforce_id = Salesforceable.save_on_salesforce('Lead', self, current_client.refresh_token, current_client.instance_url)
-    self.save!
-
-  end
-
-  def remove_from_salesforce!(current_client)
-  
-    Salesforceable.remove_from_salesforce('Lead', self.salesforce_id, current_client.refresh_token, current_client.instance_url)
-    self.salesforce_id = nil
-    self.save!
-
-  end
+  salesforceable_as 'Lead', 
+    client_id: '3MVG9sG9Z3Q1RlbdYs9verSsP3ozsVYS7iinnYoPX_wY7odwR6_c2w1FOwmavvcE_86G6ZKGOuNl9TWMrbxd.', 
+    client_secret: '8612542553551939632',
+    fields_mapping: {
+      'name' => 'FirstName',
+      'last_name' => 'LastName',
+      'email' => 'Email',
+      'company' => 'Company',
+      'job_title' => 'Title',
+      'phone' => 'Phone'
+    }
   
 end

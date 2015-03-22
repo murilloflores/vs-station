@@ -5,7 +5,7 @@ class SalesforceController < ApplicationController
   def send_to_salesforce
 
     begin
-      @lead.save_on_salesfoce!(current_client)
+      @lead.save_on_salesforce!(current_client.refresh_token, current_client.instance_url)
       redirect_to campaign_path(@lead.campaign)
     rescue Exception => e
       #TODO improve error treatment in here
@@ -18,7 +18,7 @@ class SalesforceController < ApplicationController
   def remove_from_salesforce
 
     begin
-      @lead.remove_from_salesforce!(current_client)
+      @lead.remove_from_salesforce!(current_client.refresh_token, current_client.instance_url)
       redirect_to campaign_path(@lead.campaign)
     rescue Exception => e
       #TODO improve error treatment in here
