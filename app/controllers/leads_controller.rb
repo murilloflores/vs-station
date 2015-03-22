@@ -6,6 +6,8 @@ class LeadsController < ApplicationController
 
   layout :application_layout
 
+  layout 'external', only: ['new', 'thanks']
+
   # GET /leads
   # GET /leads.json
   def index
@@ -39,8 +41,7 @@ class LeadsController < ApplicationController
 
     respond_to do |format|
       if @lead.save
-        redirect_path = client_signed_in? ? campaign_url(@campaign) : thanks_path
-        format.html { redirect_to redirect_path, notice: 'Lead was successfully created.' }
+        format.html { redirect_to thanks_path, notice: 'Your subscription has been successfully completed.' }
         format.json { render :show, status: :created, location: @lead }
       else
         format.html { render :new }
