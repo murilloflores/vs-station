@@ -7,9 +7,9 @@ class SalesforceController < ApplicationController
     begin
       @lead.save_on_salesfoce!(current_client)
       redirect_to campaign_path(@lead.campaign)
-    rescue
+    rescue Exception => e
       #TODO improve error treatment in here
-      redirect_to campaign_path(@lead.campaign), notice: "Could not sync to salesforce" 
+      redirect_to campaign_path(@lead.campaign), notice: "Could not sync to salesforce: "+e.message 
     end
 
   end
@@ -20,10 +20,9 @@ class SalesforceController < ApplicationController
     begin
       @lead.remove_from_salesforce!(current_client)
       redirect_to campaign_path(@lead.campaign)
-    rescue
-      puts "Error #{$!}"
+    rescue Exception => e
       #TODO improve error treatment in here
-      redirect_to campaign_path(@lead.campaign), notice: "Could not delete lead from salesforce" 
+      redirect_to campaign_path(@lead.campaign), notice: "Could not delete lead from salesforce: "+e.message 
     end
 
   end

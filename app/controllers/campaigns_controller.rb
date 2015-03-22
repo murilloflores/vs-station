@@ -16,6 +16,7 @@ class CampaignsController < ApplicationController
   # GET /campaigns/new
   def new
     @campaign = Campaign.new
+    @campaign.client = current_client
   end
 
   # GET /campaigns/1/edit
