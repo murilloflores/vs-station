@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  root to: "campaigns#index"
+  root to: "welcome#welcome"
   
   devise_for :clients, :controllers => { :omniauth_callbacks => "clients/omniauth_callbacks" }
 
