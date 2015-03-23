@@ -1,4 +1,13 @@
 class Lead < ActiveRecord::Base
+  
+  validates :name, length: { minimum: 2 }
+  validates :last_name, length: { minimum: 2 }
+  validates :email, uniqueness: true, presence: true, email: true
+  validates :company, presence: true
+  validates :job_title, presence: true
+  validates :phone, presence: true
+  validates :website, presence: true
+
   belongs_to :campaign
 
   salesforceable_as 'Lead', 

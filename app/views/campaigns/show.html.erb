@@ -4,7 +4,7 @@
 </ol>
 
 <h2> <%= @campaign.name %> </h2>
-<p> Form url: <%= link_to new_campaign_lead_path(@campaign, :only_path => false), new_campaign_lead_path(@campaign, :only_path => false), target: 'blank' %> </p>
+<p> Form url: <%= link_to new_campaign_lead_path(@campaign, :only_path => false), new_campaign_lead_path(@campaign, :only_path => false), target: '_blank' %> </p>
 
 <% if @campaign.leads.size > 0 %>
 

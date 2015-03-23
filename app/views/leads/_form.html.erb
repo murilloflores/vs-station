@@ -1,13 +1,15 @@
 <%= form_for [@campaign, @lead] do |f| %>
   <% if @lead.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@lead.errors.count, "error") %> prohibited this lead from being saved:</h2>
 
-      <ul>
-      <% @lead.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+    <div class="alert alert-danger" role="alert">
+      <p> <strong>Oh snap!</strong> <%= pluralize(@lead.errors.count, "error") %> prohibited this campaign from being saved: </p>
+      <p>
+        <ul>
+        <% @lead.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </p>
     </div>
   <% end %>
 
