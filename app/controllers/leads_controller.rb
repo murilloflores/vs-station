@@ -97,7 +97,8 @@ class LeadsController < ApplicationController
     def sync_with_salesforce
       if @campaign.sync_with_salesforce?
         begin
-          @lead.save_on_salesforce!(@campaign.client)
+          #TODO improve error treatment in here
+          @lead.save_on_salesforce!(@campaign.client.refresh_token, @campaign.client.instance_url)
         rescue Exception => e
           puts e.message
         end
