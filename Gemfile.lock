@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/murilloflores/salesforceable.git
+  revision: c58b90489a9f3bcff6026c5c07397fb674960c4b
+  specs:
+    salesforceable (0.0.0)
+      restforce (= 1.5.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -145,8 +152,6 @@ GEM
       faraday_middleware (>= 0.8.8)
       hashie (>= 1.2.0, < 4.0)
       json (>= 1.7.5, < 1.9.0)
-    salesforceable (0.0.0)
-      restforce (= 1.5.1)
     sass (3.4.13)
     sass-rails (5.0.1)
       railties (>= 4.0.0, < 5.0)
@@ -197,7 +202,7 @@ DEPENDENCIES
   jquery-rails
   omniauth-salesforce
   rails (= 4.2.1)
-  salesforceable
+  salesforceable!
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   spring

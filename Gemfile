@@ -34,7 +34,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'devise'
 gem 'omniauth-salesforce'
-gem 'salesforceable'
+gem 'salesforceable', :git => 'https://github.com/murilloflores/salesforceable.git'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
