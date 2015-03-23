@@ -257,6 +257,6 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
 
-  config.omniauth :salesforce, "3MVG9sG9Z3Q1RlbdYs9verSsP3ozsVYS7iinnYoPX_wY7odwR6_c2w1FOwmavvcE_86G6ZKGOuNl9TWMrbxd.", "8612542553551939632"
+  config.omniauth :salesforce, "3MVG9sG9Z3Q1RlbdYs9verSsP3skmndtEoJ7tpS4VXcCrDLw2PCIXeC_uTaMoRa9y003ujOR7SQjTIa_hmzFU", "661783981437692681"
 
 end
