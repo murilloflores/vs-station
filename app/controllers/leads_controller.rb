@@ -98,8 +98,8 @@ class LeadsController < ApplicationController
       if @campaign.sync_with_salesforce?
         begin
           @lead.save_on_salesfoce!(@campaign.client)
-        rescue
-          #TODO log to further analysis
+        rescue Exception => e
+          puts e.message
         end
       end
     end
