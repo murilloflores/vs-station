@@ -6,7 +6,7 @@ class LeadsController < ApplicationController
 
   layout :application_layout
 
-  layout 'external', only: ['new', 'thanks']
+  layout 'external', only: ['new', 'thanks', 'create']
 
   # GET /leads
   # GET /leads.json
