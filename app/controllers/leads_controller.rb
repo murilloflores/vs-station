@@ -97,7 +97,7 @@ class LeadsController < ApplicationController
     def sync_with_salesforce
       if @campaign.sync_with_salesforce?
         begin
-          @lead.save_on_salesfoce!(@campaign.client)
+          @lead.save_on_salesforce!(@campaign.client)
         rescue Exception => e
           puts e.message
         end
