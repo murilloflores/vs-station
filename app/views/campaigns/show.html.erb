@@ -27,10 +27,10 @@
           <td><%= lead.company %></td>
           
           <td style="text-align: center">
-           <strong> <%= lead.is_synced_with_salesforce ? 'Yes' : 'No' %>. </strong>
+           <strong> <%= lead.is_synced_with_salesforce? ? 'Yes' : 'No' %>. </strong>
 
             <% if current_client.is_connected_to_salesforce %>
-              <% if lead.is_synced_with_salesforce %>
+              <% if lead.is_synced_with_salesforce? %>
                 <%= link_to 'Remove', campaign_lead_remove_from_salesforce_path(@campaign, lead.id) %>
               <% else %>
                 <%= link_to 'Send', campaign_lead_send_to_salesforce_path(@campaign, lead.id) %>
